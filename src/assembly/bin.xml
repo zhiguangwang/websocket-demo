@@ -8,6 +8,15 @@
     </formats>
     <fileSets>
         <fileSet>
+            <directory>${project.basedir}</directory>
+            <outputDirectory>/</outputDirectory>
+            <includes>
+                <include>README*</include>
+                <include>LICENSE*</include>
+                <include>NOTICE*</include>
+            </includes>
+        </fileSet>
+        <fileSet>
             <directory>${project.build.directory}/${project.build.finalName}</directory>
             <outputDirectory>.</outputDirectory>
         </fileSet>
