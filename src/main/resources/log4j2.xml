@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN" packages="com.unigames.commons.logging.log4j2">
+    <!-- Prefix all property names with underscore to avoid conflict with maven resource filters -->
+    <Properties>
+        <!-- Uses ISO8601 time format -->
+        <Property name="_time">yyyy-MM-dd'T'HH:mm:ss.SSSZ</Property>
+        <!--
+        for fluentd tail source:
+            format multiline
+            format_firstline /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/
+            format1 /^(?<time>[^\s]+) \[(?<thread>.*)\] (?<level>[^\s]+)[\s]+(?<logger>[^\s]+) - (?<message>.*)/
+        -->
+        <!--<Property name="_pattern">%d{${_time}} [%t] %-5level %logger{36} - %msg %X %n</Property>-->
+        <Property name="_pattern">%d{${_time}} [%t] %-5level %logger{36} - %msg %n</Property>
+        <Property name="_filename">logs/gameserver.log</Property>
+    </Properties>
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="${_pattern}" />
+        </Console>
+        <File name="File" fileName="${_filename}" bufferedIO="true" immediateFlush="true">
+            <PatternLayout pattern="${_pattern}" />
+        </File>
+        <Fluentd name="Fluentd"
+                 tag="loginito"
+                 includeTime="true" timeKey="time" timeFormat="${_time}"
+                 host="localhost" port="24224" />
+    </Appenders>
+    <Loggers>
+        <Root level="DEBUG">
+            <!-- Uncomment the following to make develpment easier -->
+            <!--<AppenderRef ref="File" />-->
+            <AppenderRef ref="Console" />
+            <!--<AppenderRef ref="Fluentd" />-->
+        </Root>
+
+        <Logger name="com.sun.jersey" level="DEBUG" />
+        <Logger name="org.eclipse.jetty" level="DEBUG" />
+        <!--<Logger name="com.amazonaws.request" level="${log4j2.logger.com.amazonaws.request}" />-->
+        <!--<Logger name="org.apache.http.wire" level="${log4j2.logger.org.apache.http.wire}" />-->
+    </Loggers>
+</Configuration>
