@@ -29,14 +29,12 @@
     <Loggers>
         <Root level="DEBUG">
             <!-- Uncomment the following to make develpment easier -->
-            <!--<AppenderRef ref="File" />-->
             <AppenderRef ref="Console" />
+            <!--<AppenderRef ref="File" />-->
             <!--<AppenderRef ref="Fluentd" />-->
         </Root>
 
-        <Logger name="com.sun.jersey" level="DEBUG" />
-        <Logger name="org.eclipse.jetty" level="DEBUG" />
-        <!--<Logger name="com.amazonaws.request" level="${log4j2.logger.com.amazonaws.request}" />-->
+        <Logger name="com.amazonaws.request" level="DEBUG" />
         <!--<Logger name="org.apache.http.wire" level="${log4j2.logger.org.apache.http.wire}" />-->
     </Loggers>
 </Configuration>
